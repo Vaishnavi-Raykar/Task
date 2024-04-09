@@ -21,21 +21,6 @@ export default function RegisterForm() {
     }
 
     try {
-      const resUserExists = await fetch("api/userExists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const { user } = await resUserExists.json();
-
-      if (user) {
-        setError("User already exists.");
-        return;
-      }
-
       const res = await fetch("api/register", {
         method: "POST",
         headers: {
@@ -51,7 +36,7 @@ export default function RegisterForm() {
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/");
+        router.push("/login");
       } else {
         console.log("User registration failed.");
       }
@@ -91,7 +76,7 @@ export default function RegisterForm() {
             </div>
           )}
 
-          <Link className="text-sm mt-3 text-right" href={"/"}>
+          <Link className="text-sm mt-3 text-right" href={"/login"}>
             Already have an account? <span className="underline">Login</span>
           </Link>
         </form>

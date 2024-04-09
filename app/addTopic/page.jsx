@@ -7,6 +7,7 @@ export default function AddTopic() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [github, setGithub] = useState("");
+ 
 
   const router = useRouter();
 
@@ -28,7 +29,7 @@ export default function AddTopic() {
       });
 
       if (res.ok) {
-        router.push("/");
+        router.push("/seeTasks");
       } else {
         throw new Error("Failed to create a task");
       }

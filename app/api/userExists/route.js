@@ -3,10 +3,10 @@ import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
-export async function POST(req) {
+async function POST(req) {
   try {
     await connectMongoDB();
-    const { email } = await req.json();
+    const { email , name , password } = await req.json();
     console.log("Requested email:", email);
 
     const existingAdmin = await User.findOne({
@@ -20,11 +20,11 @@ export async function POST(req) {
       );
     }
 
-    const hashedPassword = await bcrypt.hash("admin", 10);
+    const hashedPassword = await bcrypt.hash( password , 10);
 
     await User.create({
-      name: "Vaishu",
-      email: "admin@gmail.com",
+      name: name,
+      email: email,
       password: hashedPassword,
       role: "admin",
     });
@@ -39,21 +39,5 @@ export async function POST(req) {
     );
   }
 }
+ export default POST;
 
-
-
-// import connectMongoDB from "@/lib/mongodb";
-// import User from "@/models/user";
-// import { NextResponse } from "next/server";
-
-// export async function POST(req) {
-//   try {
-//     await connectMongoDB();
-//     const { email } = await req.json();
-//     const user = await User.findOne({ email }).select("_id");
-//     console.log("user: ", user);
-//     return NextResponse.json({ user });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }

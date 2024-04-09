@@ -10,7 +10,7 @@ export const authOptions = {
       name: "credentials",
       credentials: {},
 
-      async authorize(credentials) {
+      async authorize(credentials,req,res) {
         const { email, password } = credentials;
 
         try {

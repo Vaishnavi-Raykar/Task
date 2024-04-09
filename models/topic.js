@@ -1,56 +1,42 @@
 import mongoose, { Schema } from "mongoose";
 
 // Task Schema
-const topicSchema = new Schema(
-  {
-    title: String,
-    description: String,
-    github: String,
-  },
-  {
-    timestamps: true,
-  }
-);
-
-// // User Schema
-// const userSchema = new Schema(
+// const topicSchema = new Schema(
 //   {
-//     username: {
-//       type: String,
-//       required: [true, "Please provide a username"],
-//       unique: true,
-//   },
-//   email: {
-//       type: String,
-//       required: [true, "Please provide a email"],
-//       unique: true,
-//   },
-//   password: {
-//       type: String,
-//       required: [true, "Please provide a password"],
-//   },
-//   isVerfied: {
-//       type: Boolean,
-//       default: false,
-//   },
-//   isAdmin: {
-//       type: Boolean,
-//       default: false,
-//   },
-//   forgotPasswordToken: String,
-//   forgotPasswordTokenExpiry: Date,
-//   verifyToken: String,
-//   verifyTokenExpiry: Date,
+//     title: String,
+//     description: String,
+//     github: String,
+//     email: {type: String,
+//     default: 'abc@example.com'}
 //   },
 //   {
 //     timestamps: true,
 //   }
 // );
 
+
+
+const topicSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+
 // Topic Model
 const TaskTopic = mongoose.models.TaskTopic || mongoose.model("TaskTopic", topicSchema);
-
-// // User Model
-// const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export { TaskTopic };
